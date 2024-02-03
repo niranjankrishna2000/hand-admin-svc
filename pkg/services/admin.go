@@ -188,7 +188,7 @@ func (s *Server) CampaignRequestList(ctx context.Context, req *pb.CampaignReques
 		sqlQuery += " AND (text ILIKE '%" + req.Searchkey + "%' OR place ILIKE '%" + req.Searchkey + "%')"
 	}
 	sqlQuery += " ORDER BY date DESC, amount DESC LIMIT ? OFFSET ?"
-
+log.Println(" Query:",sqlQuery)
 	if err := s.H.DB.Raw(sqlQuery, limit, offset).Scan(&postdetails).Error; err != nil {
 		return &pb.CampaignRequestListResponse{
 			Status:   http.StatusBadRequest,
@@ -199,7 +199,7 @@ func (s *Server) CampaignRequestList(ctx context.Context, req *pb.CampaignReques
 	log.Println("feeds:", postdetails, req, limit, page)
 	return &pb.CampaignRequestListResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "successfully colected list",
 		Post:     postdetails,
 	}, nil
 
@@ -233,6 +233,7 @@ func (s *Server) ReportedList(ctx context.Context, req *pb.ReportedListRequest) 
 			Response: "couldn't get posts from DB",
 		}, err
 	}
+	log.Println("reports: ",reportedposts)
 	var reporteds []*pb.ReportedPost
 	for _, v := range reportedposts {
 		post := new(pb.ReportedPost)
@@ -357,7 +358,7 @@ func (s *Server) CategoryPosts(ctx context.Context, req *pb.CategoryPostsRequest
 	}
 	//get category name
 	var category *pb.Category
-	sqlQuery := "SELECT * FROM categories where id=?'"
+	sqlQuery := "SELECT * FROM categories where id=?"
 	if err := s.H.DB.Raw(sqlQuery, req.Categoryid).Scan(&category).Error; err != nil {
 		return &pb.CategoryPostsResponse{
 			Status:   http.StatusBadRequest,
@@ -368,7 +369,7 @@ func (s *Server) CategoryPosts(ctx context.Context, req *pb.CategoryPostsRequest
 	//now get posts
 	var post []*pb.Post
 
-	sqlQuery = "SELECT * FROM posts where categoryid=?'"
+	sqlQuery = "SELECT * FROM posts where cat_id=?'"
 	sqlQuery += " ORDER BY id DESC LIMIT ? OFFSET ?"
 	if err := s.H.DB.Raw(sqlQuery, req.Categoryid, limit, offset).Scan(&category).Error; err != nil {
 		return &pb.CategoryPostsResponse{
