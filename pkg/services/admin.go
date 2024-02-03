@@ -48,7 +48,7 @@ func (s *Server) Feeds(ctx context.Context, req *pb.FeedsRequest) (*pb.FeedsResp
 	log.Println("feeds:", postdetails, req, limit, page)
 	return &pb.FeedsResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 		Posts:    postdetails,
 	}, nil
 
@@ -69,7 +69,7 @@ func (s *Server) PostDetails(ctx context.Context, req *pb.PostDetailsRequest) (*
 	log.Println("post:", postdetails)
 	return &pb.PostDetailsResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 		Post:     postdetails,
 	}, nil
 
@@ -96,7 +96,7 @@ func (s *Server) ApproveCampaign(ctx context.Context, req *pb.ApproveCampaignReq
 	log.Println("post:", postdetails)
 	return &pb.ApproveCampaignResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 		//Post:   postdetails,
 	}, nil
 
@@ -123,7 +123,7 @@ func (s *Server) RejectCampaign(ctx context.Context, req *pb.RejectCampaignReque
 	log.Println("post:", postdetails)
 	return &pb.RejectCampaignResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 		//Post:   postdetails,
 	}, nil
 
@@ -141,7 +141,7 @@ func (s *Server) DeletePost(ctx context.Context, req *pb.DeletePostRequest) (*pb
 
 	return &pb.DeletePostResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 	}, nil
 
 }
@@ -161,7 +161,7 @@ func (s *Server) CampaignDetails(ctx context.Context, req *pb.CampaignDetailsReq
 	log.Println("campaign:", CampaignDetails)
 	return &pb.CampaignDetailsResponse{
 		Status:   http.StatusOK,
-		Response: "",
+		Response: "success",
 		Post:     CampaignDetails,
 	}, nil
 
