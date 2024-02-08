@@ -318,7 +318,7 @@ func (s *Server) CategoryList(ctx context.Context, req *pb.CategoryListRequest) 
 	var categoryList []*pb.Category
 	sqlQuery := "SELECT * FROM categories"
 	if req.Searchkey != "" {
-		sqlQuery += " WHERE reason ILIKE '%" + req.Searchkey + "%'"
+		sqlQuery += " WHERE category ILIKE '%" + req.Searchkey + "%'"
 	}
 	sqlQuery += " ORDER BY id DESC LIMIT ? OFFSET ?"
 
